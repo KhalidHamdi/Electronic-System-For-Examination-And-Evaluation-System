@@ -1,0 +1,28 @@
+0NF
+Students [ #Student_ID , Student_UserName , Password , Degree , Level , Faculty , Exam_ID , Exam_Result, Exam_date , Professor_ID , Professor_Name , Professor_E_Score , Professor_E_Comment,  , Course_ID , Course_Name ,  Course_E_Score , Course_E_Comment , Department_ID , Department_Name, Question_ID , Question_Text , Correct_answer ]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#1NF : 
+Students [ #Student_ID , Student_UserName , Password , Degree , Level , Faculty]
+Students_Exam [ #Student_ID (FK) , #Exam_ID , Exam_Result, Exam_date , Question_ID , Question_Text , Correct_answer]
+Students_Professor_Evaluation [ #Student_ID(FK) ,  #Professor_ID , Professor_Name , Professor_E_Score , Professor_E_Comment
+Students_Course_Department [ #Student_ID (FK) , #Course_ID , Course_Name ,  Course_E_Score , Course_E_Comment , Department_ID ,  Department_name ]
+
+2NF :
+Students [ #Student_ID , Student_UserName , Password , Degree , Level , Faculty]
+Students_Exam [ #Student_ID (FK) , #Exam_ID , Exam_Result, Question_ID , Question_Text , Correct_answer]
+Exam [ #Exam_ID , Exam_date ]
+Students_Professor_Evaluation [ #Student_ID(FK) ,  #Professor_ID  , Professor_E_Score , Professor_E_Comment]
+Professor [ #Professor_ID , Professor_Name]
+Students_Course_Department [ #Student_ID (FK) , #Course_ID ,  Course_E_Score , Course_E_Comment ]
+Course [ #Course_ID(FK)  , Course_Name , Department_ID ,  Department_name , HOFD_Professor]
+
+3NF
+Students [ #Student_ID , Student_UserName , Password , Degree , Level , Faculty]
+Students_Exams[ #Student_ID (FK) , #Exam_ID , Exam_Result, , #Question_ID(FK)]
+Question_Banks [ #Question_ID , Question_Text , Correct_answer]
+Exams [ #Exam_ID , Exam_date]
+Students_Professors_Evaluations [ #Student_ID(FK) ,  #Professor_ID  , Professor_E_Score , Professor_E_Comment]
+Professors [ #Professor_ID , Professor_Name]
+Students_Courses_Departments [ #Student_ID (FK) , #Course_ID ,  Course_E_Score , Course_E_Comment ]
+Deparment_Courses [ #Course_ID(FK)  , Course_Name , Department_ID(FK), HOFD_Professor(FK)]
+Departments [ #Department_ID ,  Department_name ] 
