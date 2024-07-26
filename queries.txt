@@ -1,0 +1,35 @@
+
+1- Write a query that enables the students to view their results per course
+select Student_UserName, exam_id, exam_result
+from students_exams e, students s
+where e.exam_id = s.Student_ID;
+==============================================
+2- Write a query that enables the head of department to see evaluation of each course and professor.
+SELECT dc.Course_ID, 
+       dc.Course_Name, 
+       p.Professor_ID, 
+       p.Professor_Name,
+       spe.Professor_E_Score,
+       spe.Professor_E_Comment
+FROM department_courses dc
+JOIN professors p ON dc.HOFD_Professor = p.Professor_ID
+LEFT JOIN students_professors_evaluations spe ON p.Professor_ID = spe.Professor_ID
+ORDER BY dc.Course_Name, p.Professor_Name;
+======================================================
+3- Write aquery thate nables you to get top 10 high scores per course .
+SELECT s.Student_UserName AS "Student name", scd.Course_E_Score AS course_score
+FROM students_courses_departments scd
+JOIN students s ON scd.Student_ID = s.Student_ID
+ORDER BY scd.Course_E_Score DESC
+LIMIT 10;
+============================================
+4- Write a query to get the highest evaluation professor from the set of professors teaching the same course .
+SELECT dc.Course_ID,
+       dc.Course_Name,
+       p.Professor_ID,
+       p.Professor_Name,
+       MAX(spe.Professor_E_Score) AS Max_Evaluation_Score
+FROM department_courses dc
+JOIN professors p ON dc.HOFD_Professor = p.Professor_ID
+JOIN students_professors_evaluations spe ON p.Professor_ID = spe.Professor_ID
+GROUP BY dc.Course_ID, dc.Course_Name, p.Professor_ID, p.Professor_Name;
